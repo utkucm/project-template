@@ -1,0 +1,34 @@
+# Data (keep README + folder placeholders)
+data/raw/*
+data/processed/*
+!data/**/README.md
+!data/**/.gitkeep
+
+# uv / python
+.venv/
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+
+# MATLAB
+*.asv
+*.m~
+slprj/
+codegen/
+
+# LaTeX
+paper/build/
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+
+# OS
+.DS_Store
