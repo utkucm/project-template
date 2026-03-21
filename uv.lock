@@ -551,7 +551,6 @@ dependencies = [
     { name = "numpy" },
     { name = "openpyxl" },
     { name = "pandas" },
-    { name = "python-dotenv" },
     { name = "scipy" },
     { name = "seaborn" },
     { name = "statsmodels" },
@@ -571,7 +570,6 @@ requires-dist = [
     { name = "numpy", specifier = ">=2.3.5" },
     { name = "openpyxl", specifier = ">=3.1.5" },
     { name = "pandas", specifier = ">=2.3.3" },
-    { name = "python-dotenv", specifier = ">=1.2.1" },
     { name = "scipy", specifier = ">=1.16.3" },
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "statsmodels", specifier = ">=0.14.6" },
@@ -629,15 +627,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ec/67/09765eacf4e44413c4f8943ba5a317fcb9c7b447c3b8b0b7fce7e3090b0b/python_discovery-1.1.1.tar.gz", hash = "sha256:584c08b141c5b7029f206b4e8b78b1a1764b22121e21519b89dec56936e95b0a", size = 56016, upload-time = "2026-03-07T00:00:56.354Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/75/0f/2bf7e3b5a4a65f623cb820feb5793e243fad58ae561015ee15a6152f67a2/python_discovery-1.1.1-py3-none-any.whl", hash = "sha256:69f11073fa2392251e405d4e847d60ffffd25fd762a0dc4d1a7d6b9c3f79f1a3", size = 30732, upload-time = "2026-03-07T00:00:55.143Z" },
-]
-
-[[package]]
-name = "python-dotenv"
-version = "1.2.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f0/26/19cadc79a718c5edbec86fd4919a6b6d3f681039a2f6d66d14be94e75fb9/python_dotenv-1.2.1.tar.gz", hash = "sha256:42667e897e16ab0d66954af0e60a9caa94f0fd4ecf3aaf6d2d260eec1aa36ad6", size = 44221, upload-time = "2025-10-26T15:12:10.434Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/14/1b/a298b06749107c305e1fe0f814c6c74aea7b2f1e10989cb30f544a1b3253/python_dotenv-1.2.1-py3-none-any.whl", hash = "sha256:b81ee9561e9ca4004139c6cbba3a238c32b03e4894671e181b671e8cb8425d61", size = 21230, upload-time = "2025-10-26T15:12:09.109Z" },
 ]
 
 [[package]]
