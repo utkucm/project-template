@@ -45,11 +45,23 @@ format:
 typecheck:
 	cd code && uv run ty check $(SRC_DIR)
 
-pre-commit-install:
-	cd code && uv run pre-commit install
-
 run:
 	cd code && $(PY) $(SRC_DIR)/main.py
+
+test:
+	@echo CODE_DIR=$(CODE_DIR)
+
+create-code-project:
+ifndef CODE_DIR
+	$(error CODE_DIR is required. Usage: make create-code-project CODE_DIR=<code-directory-name>)
+endif
+	mkdir -p $(CODE_DIR)
+	cd $(CODE_DIR) && uv init --bare .
+	mkdir -p $(CODE_DIR)/$(SRC_DIR) $(CODE_DIR)/$(DATA_DIR) $(CODE_DIR)/$(DATA_DIR)/raw $(CODE_DIR)/$(DATA_DIR)/processed $(CODE_DIR)/$(OUTPUT_DIR) $(CODE_DIR)/$(OUTPUT_DIR)/figures $(CODE_DIR)/$(TABLES_DIR) $(CODE_DIR)/$(SCRIPTS_DIR)
+	touch $(CODE_DIR)/$(SRC_DIR)/__init__.py $(CODE_DIR)/$(SRC_DIR)/main.py $(CODE_DIR)/$(SCRIPTS_DIR)/__init__.py
+	touch $(CODE_DIR)/$(DATA_DIR)/.gitkeep $(CODE_DIR)/$(DATA_DIR)/raw/.gitkeep $(CODE_DIR)/$(DATA_DIR)/processed/.gitkeep
+	cd $(CODE_DIR) && uv add --dev ruff ty
+	cd $(CODE_DIR) && uv add numpy scipy sympy pandas polars matplotlib seaborn scikit-learn statsmodels jupyterlab
 
 fetch-assignments:
 ifndef NAME
