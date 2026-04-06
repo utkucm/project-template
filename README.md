@@ -6,7 +6,7 @@ A structured template for organizing course-related work, combining a Python dat
 
 ```
 course-project-template/
-├── code/                   # Python project (managed with uv)
+├── <code-dir>/             # Python project created with make create-code-project
 │   ├── src/                # Source code
 │   │   └── main.py
 │   ├── data/
@@ -29,37 +29,37 @@ course-project-template/
 - `make` — task runner
 - `curl` — for fetching LaTeX templates
 
-## Setup
+## Usage
 
-Install Python dependencies:
+### Creating a Code Project
+
+Scaffold a uv Python project inside a new directory:
 
 ```bash
-make sync
+make create-code-project CODE_DIR=<name>
 ```
 
-## Usage
+This runs `uv init --bare` then installs all default dependencies. To change the default package set, edit the `DEPS` and `DEV_DEPS` variables at the top of the [Makefile](Makefile).
 
 ### Python Development
 
-| Command          | Description                         |
-| ---------------- | ----------------------------------- |
-| `make run`       | Run `src/main.py`                   |
-| `make lint`      | Lint with ruff                      |
-| `make format`    | Format with ruff                    |
-| `make typecheck` | Type-check with ty                  |
-| `make check`     | Lint + format check + typecheck (no files modified) |
-| `make jupyter`   | Start JupyterLab                    |
-| `make clean`     | Remove generated output files       |
-
-### Creating a New Code Sub-project
-
-Scaffold a self-contained uv Python project inside a new directory:
+All dev targets accept an optional `CODE_DIR` argument (defaults to `code`):
 
 ```bash
-make create-code-project CODE_DIR=<directory-name>
+make sync                        # install dependencies
+make sync CODE_DIR=myproject     # explicit directory
 ```
 
-This runs `uv init --bare` then `uv add` for all dependencies. To change the default package set, edit the `DEPS` and `DEV_DEPS` variables at the top of the Makefile.
+| Command          | Description                                         |
+| ---------------- | --------------------------------------------------- |
+| `make sync`      | Install dependencies                                |
+| `make run`       | Run `src/main.py`                                   |
+| `make lint`      | Lint with ruff                                      |
+| `make format`    | Format with ruff                                    |
+| `make typecheck` | Type-check with ty                                  |
+| `make check`     | Lint + format check + typecheck (no files modified) |
+| `make jupyter`   | Start JupyterLab                                    |
+| `make clean`     | Remove generated output files                       |
 
 ### LaTeX Templates
 
@@ -67,27 +67,25 @@ Fetch assignment templates from the [latex_templates](https://github.com/utkucm/
 
 ```bash
 make fetch-assignments NAME=<assignment-name>
-# → places template in docs/assignments/<assignment-name>/
+# → docs/assignments/<assignment-name>/
 ```
 
 Fetch lecture notes template:
 
 ```bash
 make fetch-lecture-notes
-# → places template in docs/lecture_notes/
+# → docs/lecture_notes/
 ```
 
 ## Python Dependencies
 
-Core packages in `code/pyproject.toml`:
+Default packages installed by `create-code-project`:
 
 - **Data**: `pandas`, `polars`, `numpy`, `scipy`, `sympy`, `openpyxl`
 - **Modeling**: `statsmodels`, `linearmodels`, `scikit-learn`
 - **Visualization**: `matplotlib`, `seaborn`
 - **Notebooks**: `jupyterlab`
 - **Dev**: `ruff` (linting/formatting), `ty` (type checking)
-
-The default list is defined by `DEPS` and `DEV_DEPS` at the top of the [Makefile](Makefile).
 
 Requires Python 3.13+.
 
