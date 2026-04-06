@@ -67,6 +67,3 @@ fetch-lecture-notes:
 	unzip -q $(TMP_ZIP) -d $(TMP_DIR)
 	mv $(TMP_DIR)/*/$(LATEX_LECTURE_NOTES_REPO_DIR) $(LATEX_DOCS_LECTURE_NOTES_DIR)
 	rm -rf $(TMP_DIR) $(TMP_ZIP)
-
-clean:
-	rm -rf $(FIGS_DIR)/* $(TABLES_DIR)/* $(DATA_PROCESSED_DIR)/*
