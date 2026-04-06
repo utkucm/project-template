@@ -27,7 +27,7 @@ course-project-template/
 
 - [uv](https://docs.astral.sh/uv/) — Python package and project manager
 - `make` — task runner
-- `curl` + `unzip` — for fetching LaTeX templates
+- `curl` — for fetching LaTeX templates
 
 ## Setup
 
@@ -47,7 +47,9 @@ make sync
 | `make lint`      | Lint with ruff                      |
 | `make format`    | Format with ruff                    |
 | `make typecheck` | Type-check with ty                  |
-| `make check`     | Run lint + format check + typecheck |
+| `make check`     | Lint + format check + typecheck (no files modified) |
+| `make jupyter`   | Start JupyterLab                    |
+| `make clean`     | Remove generated output files       |
 
 ### Creating a New Code Sub-project
 
@@ -73,12 +75,6 @@ Fetch lecture notes template:
 ```bash
 make fetch-lecture-notes
 # → places template in docs/lecture_notes/
-```
-
-### Cleanup
-
-```bash
-make clean
 ```
 
 ## Python Dependencies

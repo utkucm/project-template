@@ -17,7 +17,7 @@ DEPS := numpy scipy sympy pandas polars matplotlib seaborn \
         scikit-learn statsmodels linearmodels openpyxl jupyterlab
 DEV_DEPS := ruff ty
 
-.PHONY: help sync lint format typecheck run check create-code-project fetch-assignments fetch-lecture-notes
+.PHONY: help sync lint format typecheck run check jupyter clean create-code-project fetch-assignments fetch-lecture-notes
 
 help:
 	@echo "Usage: make <target>"
@@ -29,6 +29,8 @@ help:
 	@echo "  typecheck                             Run ty type checker"
 	@echo "  check                                 Run lint + format check + typecheck"
 	@echo "  run                                   Run src/main.py"
+	@echo "  jupyter                               Start JupyterLab"
+	@echo "  clean                                 Remove generated output files"
 	@echo "  create-code-project CODE_DIR=<name>   Scaffold a new Python sub-project"
 	@echo "  fetch-assignments NAME=<name>         Fetch LaTeX assignment template"
 	@echo "  fetch-lecture-notes                   Fetch LaTeX lecture notes template"
@@ -48,7 +50,16 @@ typecheck:
 run:
 	cd code && $(PY) $(SRC_DIR)/main.py
 
-check: lint format typecheck
+check:
+	cd code && uv run ruff check $(SRC_DIR)
+	cd code && uv run ruff format --check $(SRC_DIR)
+	cd code && uv run ty check $(SRC_DIR)
+
+jupyter:
+	cd code && uv run jupyter lab
+
+clean:
+	find code/$(OUTPUT_DIR) -type f ! -name '.gitkeep' -delete
 
 # Usage: $(call fetch-latex-template,<repo-subdir>,<destination-path>)
 define fetch-latex-template
