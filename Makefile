@@ -124,7 +124,7 @@ sync-docs:
 	fi
 	@DEST=$$(echo "$(DROPBOX_DOCS_DIR)" | sed "s|^~|$$HOME|"); \
 		mkdir -p "$$DEST" && \
-		rsync -a --include='*/' --include='*.pdf' --exclude='*' docs/ "$$DEST/"
+		rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs docs/ "$$DEST/"
 
 watch-docs:
 	@if [ -z "$(DROPBOX_DOCS_DIR)" ]; then \
@@ -135,7 +135,7 @@ watch-docs:
 	@DEST=$$(echo "$(DROPBOX_DOCS_DIR)" | sed "s|^~|$$HOME|"); \
 		mkdir -p "$$DEST" && \
 		fswatch -o --include='\.pdf$$' --exclude='.*' -r docs/ | \
-		xargs -n1 -I{} rsync -a --include='*/' --include='*.pdf' --exclude='*' docs/ "$$DEST/"
+		xargs -n1 -I{} rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs docs/ "$$DEST/"
 
 fetch-beamer-presentation:
 ifndef NAME
