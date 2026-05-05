@@ -13,6 +13,7 @@ BRANCH                        := main
 LATEX_DOCS_ASSIGNMENTS_DIR    := docs/assignments
 LATEX_DOCS_LECTURE_NOTES_DIR  := docs
 LATEX_DOCS_PRESENTATIONS_DIR  := docs/presentations
+LATEX_DOCS_PAPER_DIR          := docs/paper
 
 -include .env
 export
@@ -21,7 +22,7 @@ DEPS := numpy scipy sympy pandas polars matplotlib seaborn \
         scikit-learn statsmodels linearmodels openpyxl jupyterlab
 DEV_DEPS := ruff ty
 
-.PHONY: help sync lint format typecheck run check jupyter clean create-code-project fetch-assignments fetch-lecture-notes fetch-presentation watch-docs sync-docs
+.PHONY: help sync lint format typecheck run check jupyter clean create-code-project fetch-assignments fetch-lecture-notes fetch-presentation fetch-paper watch-docs sync-docs
 
 help:
 	@echo "Usage: make <target>"
@@ -39,6 +40,7 @@ help:
 	@echo "  fetch-assignments NAME=<name>         Fetch LaTeX assignment template"
 	@echo "  fetch-lecture-notes                   Fetch LaTeX lecture notes template"
 	@echo "  fetch-presentation NAME=<name>        Fetch LaTeX beamer presentation template"
+	@echo "  fetch-paper                           Fetch LaTeX paper template"
 	@echo "  sync-docs                             Sync PDFs from docs/ to Dropbox once"
 	@echo "  watch-docs                            Watch docs/ and sync PDFs to Dropbox on change"
 
@@ -142,3 +144,6 @@ ifndef NAME
 	$(error NAME is required. Usage: make fetch-presentation NAME=<presentation-name>)
 endif
 	$(call fetch-latex-template,beamer_presentation,$(LATEX_DOCS_PRESENTATIONS_DIR)/$(NAME))
+
+fetch-paper:
+	$(call fetch-latex-template,paper,$(LATEX_DOCS_PAPER_DIR))

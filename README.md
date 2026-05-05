@@ -77,6 +77,20 @@ make fetch-lecture-notes
 # → docs/lecture_notes/
 ```
 
+Fetch beamer presentation template:
+
+```bash
+make fetch-beamer-presentation NAME=<presentation-name>
+# → docs/presentations/<presentation-name>/
+```
+
+Fetch paper template:
+
+```bash
+make fetch-paper
+# → docs/paper/
+```
+
 ## Python Dependencies
 
 Default packages installed by `create-code-project`:
