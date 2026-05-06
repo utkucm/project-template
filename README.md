@@ -17,6 +17,7 @@ course-project-template/
 │   │   └── tables/         # Generated tables
 │   ├── scripts/            # Utility/automation scripts
 │   └── pyproject.toml
+├── admin/                  # Administrative files (syllabi, course info)
 ├── docs/                   # LaTeX documents (assignments, lecture notes)
 ├── exams/                  # Exam materials
 ├── papers/                 # Reference papers

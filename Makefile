@@ -22,7 +22,7 @@ DEPS := numpy scipy sympy pandas polars matplotlib seaborn \
         scikit-learn statsmodels linearmodels openpyxl jupyterlab
 DEV_DEPS := ruff ty
 
-.PHONY: help sync lint format typecheck run check jupyter clean create-code-project fetch-assignments fetch-lecture-notes fetch-presentation fetch-paper watch-docs sync-docs
+.PHONY: help sync lint format typecheck run check jupyter clean create-code-project fetch-assignments fetch-lecture-notes fetch-beamer-presentation fetch-paper watch-docs sync-docs
 
 help:
 	@echo "Usage: make <target>"
@@ -39,7 +39,7 @@ help:
 	@echo "  create-code-project CODE_DIR=<name>   Scaffold a new Python sub-project"
 	@echo "  fetch-assignments NAME=<name>         Fetch LaTeX assignment template"
 	@echo "  fetch-lecture-notes                   Fetch LaTeX lecture notes template"
-	@echo "  fetch-presentation NAME=<name>        Fetch LaTeX beamer presentation template"
+	@echo "  fetch-beamer-presentation NAME=<name> Fetch LaTeX beamer presentation template"
 	@echo "  fetch-paper                           Fetch LaTeX paper template"
 	@echo "  sync-docs                             Sync PDFs from docs/ to Dropbox once"
 	@echo "  watch-docs                            Watch docs/ and sync PDFs to Dropbox on change"
@@ -87,9 +87,6 @@ fi
 endef
 
 create-code-project:
-ifndef CODE_DIR
-	$(error CODE_DIR is required. Usage: make create-code-project CODE_DIR=<name>)
-endif
 	@if [ -d "$(CODE_DIR)" ]; then \
 		echo "Error: $(CODE_DIR) already exists."; exit 1; \
 	fi
@@ -106,7 +103,9 @@ endif
 	      $(CODE_DIR)/$(SCRIPTS_DIR)/__init__.py \
 	      $(CODE_DIR)/$(DATA_RAW_DIR)/.gitkeep \
 	      $(CODE_DIR)/$(DATA_PROCESSED_DIR)/.gitkeep \
-		  $(CODE_DIR)/$(NOTEBOOKS_DIR)/.gitkeep
+	      $(CODE_DIR)/$(FIGS_DIR)/.gitkeep \
+	      $(CODE_DIR)/$(TABLES_DIR)/.gitkeep \
+	      $(CODE_DIR)/$(NOTEBOOKS_DIR)/.gitkeep
 	cd $(CODE_DIR) && uv init --bare .
 	cd $(CODE_DIR) && uv add $(DEPS)
 	cd $(CODE_DIR) && uv add --dev $(DEV_DEPS)

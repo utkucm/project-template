@@ -16,16 +16,16 @@ build/
 # =============================================================================
 # Data — keep folder structure and placeholders, ignore contents
 # =============================================================================
-data/raw/*
-data/processed/*
-!data/**/README.md
-!data/**/.gitkeep
+**/data/raw/*
+**/data/processed/*
+!**/data/**/README.md
+!**/data/**/.gitkeep
 
 # Generated outputs
-output/figures/*
-output/tables/*
-!output/figures/.gitkeep
-!output/tables/.gitkeep
+**/output/figures/*
+**/output/tables/*
+!**/output/figures/.gitkeep
+!**/output/tables/.gitkeep
 
 # =============================================================================
 # Jupyter
