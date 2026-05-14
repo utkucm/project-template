@@ -125,18 +125,28 @@ sync-docs:
 	fi
 	@DEST=$$(echo "$(DROPBOX_DOCS_DIR)" | sed "s|^~|$$HOME|"); \
 		mkdir -p "$$DEST" && \
-		rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs docs/ "$$DEST/"
+		rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs docs/ "$$DEST/docs/" && \
+		rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs admin/ "$$DEST/admin/" && \
+		rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs exams/ "$$DEST/exams/" && \
+		rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs papers/ "$$DEST/papers/" && \
+		rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs problem-sets/ "$$DEST/problem-sets/"
 
 watch-docs:
 	@if [ -z "$(DROPBOX_DOCS_DIR)" ]; then \
 		echo "Error: DROPBOX_DOCS_DIR is not set. Define it in .env"; exit 1; \
 	fi
 	@which fswatch > /dev/null 2>&1 || { echo "Error: fswatch not installed. Run: brew install fswatch"; exit 1; }
-	@echo "Watching docs/ for PDF changes..."
+	@echo "Watching docs/, admin/, exams/, papers/, problem-sets/ for PDF changes..."
 	@DEST=$$(echo "$(DROPBOX_DOCS_DIR)" | sed "s|^~|$$HOME|"); \
 		mkdir -p "$$DEST" && \
-		fswatch -o --include='\.pdf$$' --exclude='.*' -r docs/ | \
-		xargs -n1 -I{} rsync -a --include='*/' --include='*.pdf' --exclude='*' --prune-empty-dirs docs/ "$$DEST/"
+		fswatch -o --include='\.pdf$$' --exclude='.*' -r docs/ admin/ exams/ papers/ problem-sets/ | \
+		xargs -n1 -I{} sh -c ' \
+			rsync -a --include="*/" --include="*.pdf" --exclude="*" --prune-empty-dirs docs/ "'"$$DEST"'/docs/" && \
+			rsync -a --include="*/" --include="*.pdf" --exclude="*" --prune-empty-dirs admin/ "'"$$DEST"'/admin/" && \
+			rsync -a --include="*/" --include="*.pdf" --exclude="*" --prune-empty-dirs exams/ "'"$$DEST"'/exams/" && \
+			rsync -a --include="*/" --include="*.pdf" --exclude="*" --prune-empty-dirs papers/ "'"$$DEST"'/papers/" && \
+			rsync -a --include="*/" --include="*.pdf" --exclude="*" --prune-empty-dirs problem-sets/ "'"$$DEST"'/problem-sets/" \
+		'
 
 fetch-beamer-presentation:
 ifndef NAME
